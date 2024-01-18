@@ -1,6 +1,7 @@
 package com.example.todo.controller;
 
-import org.springframework.scheduling.config.Task;
+
+import com.example.todo.model.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequestMapping("/")
 public class ToDoController {
 
-    private List<Task> todoList = new ArrayList<>();
+    private final List<Task> todoList = new ArrayList<>();
 
     @GetMapping
     public String index(Model model) {

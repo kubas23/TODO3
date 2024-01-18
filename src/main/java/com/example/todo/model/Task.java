@@ -1,4 +1,4 @@
-package com.example.todo.controller;
+package com.example.todo.model;
 
 public class Task {
 
