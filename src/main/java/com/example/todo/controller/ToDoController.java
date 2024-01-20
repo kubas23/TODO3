@@ -4,10 +4,7 @@ package com.example.todo.controller;
 import com.example.todo.model.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +22,15 @@ public class ToDoController {
     }
 
     @PostMapping("/add")
-    public String addTask(@RequestParam String task, @RequestParam String status, @RequestParam(required = false) String deadline){
+    public String addTask(@RequestParam String task, @RequestParam Boolean status, @RequestParam(required = false) String deadline){
         Task newTask = new Task(task, status, deadline);
         todoList.add(newTask);
         return "redirect:/";
     }
 
-    @GetMapping("/delete/{id}")
+    @PutMapping ("/delete/{id}")
     public String deleteTask(@RequestParam Long id) {
-        todoList.removeIf(task -> task.getClass().equals(id));
+        todoList.removeIf(task -> task.getId().equals(id));
         return "redirect:/";
     }
 }

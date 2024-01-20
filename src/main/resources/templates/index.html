@@ -132,8 +132,8 @@
     <input type="text" id="task" name="task" required>
     <label for="status">Status:</label>
     <select id="status" name="status">
-        <option value="DONE">Done</option>
-        <option value="NOT_DONE">Not Done</option>
+        <option value="TRUE">Done</option>
+        <option value="FALSE">Not Done</option>
     </select>
     <label for="deadline">Deadline:</label>
     <input type="date" id="deadline" name="deadline">
@@ -143,7 +143,7 @@
 <ul th:if="${not #lists.isEmpty(todoList)}">
     <li th:each="task : ${todoList}">
         <span th:text="${task.description}"></span>
-        <span th:class="${task.status == 'DONE' ? 'status-done' : 'status-not-done'}"
+        <span th:class="${task.status == 'TRUE' ? 'status-done' : 'status-not-done'}"
               th:text="${task.status}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
         <a th:href="@{/delete/{id}(id=${task.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>
