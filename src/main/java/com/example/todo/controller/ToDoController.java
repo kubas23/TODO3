@@ -2,12 +2,11 @@ package com.example.todo.controller;
 
 
 import com.example.todo.model.Task;
+import com.example.todo.repository.ToDoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +15,16 @@ import java.util.List;
 @RequestMapping("/")
 public class ToDoController {
 
-    private final List<Task> todoList = new ArrayList<>();
+    private final ToDoRepository toDoRepository;
+
+    @Autowired
+    public ToDoController(ToDoRepository toDoRepository) {
+        this.toDoRepository = toDoRepository;
+    }
 
     @GetMapping
     public String index(Model model) {
+        List<Task> todoList =  toDoRepository.findAll();
         model.addAttribute("todoList", todoList);
         return "index";
     }
@@ -27,13 +32,12 @@ public class ToDoController {
     @PostMapping("/add")
     public String addTask(@RequestParam String task, @RequestParam String status, @RequestParam(required = false) String deadline){
         Task newTask = new Task(task, status, deadline);
-        todoList.add(newTask);
         return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteTask(@RequestParam Long id) {
-        todoList.removeIf(task -> task.getClass().equals(id));
+    public String deleteTask(@PathVariable Long id) {
+        toDoRepository.deleteById(id);
         return "redirect:/";
     }
 }
