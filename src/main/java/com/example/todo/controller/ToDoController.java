@@ -2,6 +2,8 @@ package com.example.todo.controller;
 
 
 import com.example.todo.model.Task;
+import com.example.todo.service.DataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,9 @@ import java.util.List;
 @RequestMapping("/")
 public class ToDoController {
 
-    private final List<Task> todoList = new ArrayList<>();
+   private final List<Task> todoList = new ArrayList<>();
+//    @Autowired
+//    DataService todoList;
 
     @GetMapping
     public String index(Model model) {
@@ -30,7 +34,7 @@ public class ToDoController {
 
     @PutMapping ("/delete/{id}")
     public String deleteTask(@RequestParam Long id) {
-        todoList.removeIf(task -> task.getId().equals(id));
+        //todoList.
         return "redirect:/";
     }
 }
