@@ -91,12 +91,21 @@
             position: absolute;
             top: 5px;
             right: 5px;
-            color: #999;
+            /*color: #999;*/
             text-decoration: none;
+
+            background-color: #61a0a8;
+            color: white;
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .delete-link:hover {
-            color: #555;
+            /*color: #555;*/
+            background-color: #407780;
         }
 
         p {
@@ -132,8 +141,8 @@
     <input type="text" id="task" name="task" required>
     <label for="status">Status:</label>
     <select id="status" name="status">
-        <option value="DONE">Done</option>
-        <option value="NOT_DONE">Not Done</option>
+        <option value="TRUE">Done</option>
+        <option value="FALSE">Not Done</option>
     </select>
     <label for="deadline">Deadline:</label>
     <input type="date" id="deadline" name="deadline">
@@ -143,10 +152,13 @@
 <ul th:if="${not #lists.isEmpty(todoList)}">
     <li th:each="task : ${todoList}">
         <span th:text="${task.description}"></span>
-        <span th:class="${task.status == 'DONE' ? 'status-done' : 'status-not-done'}"
+        <span th:class="${task.status == 'TRUE' ? 'status-done' : 'status-not-done'}"
               th:text="${task.status}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
-        <a th:href="@{/delete/{id}(id=${task.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>
+<!--        <a th:href="@{/delete/{id}(id=${task.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>-->
+        <form th:action="@{/delete/{id}(id=${task.id})}" method="post" >
+            <button class="delete-link" type="submit" onclick="return confirm('Are you sure?')">Delete </button>
+        </form>
     </li>
 </ul>
 
