@@ -13,7 +13,6 @@ import java.util.List;
 public class DataService {
 
     private final ToDoRepository toDoRepository;
-//    private final List<Task> todoList = new ArrayList<>();
 
     public void addTask (String description, String deadline, Boolean status){
         toDoRepository.save(new Task(description, status, deadline));

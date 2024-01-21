@@ -17,7 +17,7 @@ public class Config {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/todo_3");
         dataSource.setUsername("root");
-        dataSource.setPassword("6154");
+        dataSource.setPassword("1998Wotmaster17698");
         return dataSource;
         }
     }
