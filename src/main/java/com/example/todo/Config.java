@@ -2,6 +2,7 @@ package com.example.todo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -12,9 +13,12 @@ public class Config {
 
     @Bean
     public DataSource dataSource(){
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .build();
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/todo_app");
+        dataSource.setUsername("root");
+        dataSource.setPassword("6154");
+        return dataSource;
         }
     }
 
