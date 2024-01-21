@@ -155,7 +155,10 @@
         <span th:class="${task.status == 'TRUE' ? 'status-done' : 'status-not-done'}"
               th:text="${task.status}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
-        <a th:href="@{/delete/{id}(id=${task.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>
+<!--        <a th:href="@{/delete/{id}(id=${task.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>-->
+        <form th:action="@{/delete/{id}(id=${task.id})}" method="post" >
+            <button class="delete-link" type="submit" onclick="return confirm('Are you sure?')">Delete </button>
+        </form>
     </li>
 </ul>
 
