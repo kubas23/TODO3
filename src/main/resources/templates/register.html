@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo - Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin-top: 20px;
+            background-color: #e0f7fa;
+            padding: 10px;
+            border-radius: 10px;
+            width: 30%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            background-color: #61a0a8;
+            padding: 10px;
+            margin-top: -20px;
+            margin-left: -10px;
+            margin-right: -10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #61a0a8;
+        }
+
+        a {
+            color: #61a0a8;
+        }
+
+        a:hover {
+            color: #407780;
+        }
+
+        button {
+            background-color: #61a0a8;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #407780;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Register</h2>
+
+<!--    <form th:action="@{/registration}" method="post" th:object="${user}">--> <!-- zakomentováno kvůli testování bez funčního backendu, stejně řádky 88 a 91-->
+    <form th:action="@{/registration}" method="post">                            <!-- po zprovoznění backendu smazat tento řádek a taky 89 a 92 -->
+        <label>Username:</label>
+<!--        <input type="text" th:field="*{username}" required/>-->
+        <input type="text" >
+        <label>Password:</label>
+<!--        <input type="password" th:field="*{password}" required/>-->
+        <input type="password" />
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+</div>
+</body>
+</html>
