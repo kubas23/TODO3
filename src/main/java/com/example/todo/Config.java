@@ -15,9 +15,9 @@ public class Config {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/todo_3");
+        dataSource.setUrl("jdbc:mysql://monorail.proxy.rlwy.net:12959/railway");
         dataSource.setUsername("root");
-        dataSource.setPassword("1998Wotmaster17698");
+        dataSource.setPassword("d2g4dh4AbHG3E5FeBEAb36f2aH565GD-");
         return dataSource;
         }
     }
