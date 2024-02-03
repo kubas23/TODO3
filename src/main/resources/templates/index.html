@@ -138,6 +138,12 @@
         button:hover {
             background-color: #407780;
         }
+
+        /*.description {*/
+        /*    white-space: pre-line; !* Preserve newlines *!*/
+        /*    display: block; !* Ensure it's block-level *!*/
+        /*    font-family: monospace; !* Optional: to ensure consistent width of characters *!*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -153,13 +159,23 @@
         <option value="FALSE">Not Done</option>
     </select>
     <label for="deadline">Deadline:</label>
-    <input type="date" id="deadline" name="deadline">
+    <input type="date" id="deadline" name="deadline" required>
     <button type="submit">Add Task</button>
 </form>
 
 <ul th:if="${not #lists.isEmpty(todoList)}">
     <li th:each="task : ${todoList}">
-        <span th:text="${task.description}"></span>
+        <span style="word-wrap: break-word; width: 100px" th:text="${task.description}"></span>
+
+<!--        <span>-->
+<!--            &lt;!&ndash; Splitting description into chunks of 5 characters &ndash;&gt;-->
+<!--            <span th:utext="${#strings.replace(task.description, '(.{5})', '$1&lt;br/&gt;')}"></span>-->
+<!--        </span>-->
+
+<!--        <span class="description">-->
+<!--            <span th:text="${task.description}"></span>-->
+<!--        </span>-->
+
         <span th:class="${task.status ? 'status-done' : 'status-not-done'}"
               th:text="${task.status ? 'Done' : 'Not done'}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
