@@ -25,12 +25,12 @@
             border-top-right-radius: 10px;
         }
 
-        form {
+        .input-form{
             margin-bottom: 20px;
             background-color: #e0f7fa;
             padding: 10px;
             border-radius: 10px;
-            width: 300px;
+            width: 30%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -56,7 +56,7 @@
         ul {
             list-style: none;
             padding: 0;
-            width: 300px;
+            width: 30%;
         }
 
         li {
@@ -64,22 +64,30 @@
             margin-bottom: 10px;
             padding: 10px;
             position: relative;
-            background-color: #fff;
+            background-color: #e0f7fa;
             border-radius: 10px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
         }
 
         li span {
             display: inline-block;
             max-width: 80%;
+            justify-content: space-between;
+
         }
 
         .status-done {
-            color: #8bfc8b;
+            color: #008c00;
+            font-weight: bold;
         }
 
         .status-not-done {
-            color: rgba(250, 10, 10, 0.99);
+            color: rgba(197, 12, 12, 0.99);
+            font-weight: bold;
         }
 
         .deadline {
@@ -136,7 +144,7 @@
 
 <h2>ToDo List</h2>
 
-<form th:action="@{/add}" method="post">
+<form class="input-form" th:action="@{/add}" method="post">
     <label for="task">New Task:</label>
     <input type="text" id="task" name="task" required>
     <label for="status">Status:</label>
@@ -145,17 +153,16 @@
         <option value="FALSE">Not Done</option>
     </select>
     <label for="deadline">Deadline:</label>
-    <input type="date" id="deadline" name="deadline">
+    <input type="date" id="deadline" name="deadline" required>
     <button type="submit">Add Task</button>
 </form>
 
 <ul th:if="${not #lists.isEmpty(todoList)}">
     <li th:each="task : ${todoList}">
-        <span th:text="${task.description}"></span>
-        <span th:class="${task.status == 'TRUE' ? 'status-done' : 'status-not-done'}"
-              th:text="${task.status}"></span>
+        <span style="word-wrap: break-word; width: 100px" th:text="${task.description}"></span>
+        <span th:class="${task.status ? 'status-done' : 'status-not-done'}"
+              th:text="${task.status ? 'Done' : 'Not done'}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
-<!--        <a th:href="@{/delete/{id}(id=${task.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>-->
         <form th:action="@{/delete/{id}(id=${task.id})}" method="post" >
             <button class="delete-link" type="submit" onclick="return confirm('Are you sure?')">Delete </button>
         </form>
