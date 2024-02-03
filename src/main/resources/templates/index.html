@@ -138,12 +138,6 @@
         button:hover {
             background-color: #407780;
         }
-
-        /*.description {*/
-        /*    white-space: pre-line; !* Preserve newlines *!*/
-        /*    display: block; !* Ensure it's block-level *!*/
-        /*    font-family: monospace; !* Optional: to ensure consistent width of characters *!*/
-        /*}*/
     </style>
 </head>
 <body>
@@ -166,16 +160,6 @@
 <ul th:if="${not #lists.isEmpty(todoList)}">
     <li th:each="task : ${todoList}">
         <span style="word-wrap: break-word; width: 100px" th:text="${task.description}"></span>
-
-<!--        <span>-->
-<!--            &lt;!&ndash; Splitting description into chunks of 5 characters &ndash;&gt;-->
-<!--            <span th:utext="${#strings.replace(task.description, '(.{5})', '$1&lt;br/&gt;')}"></span>-->
-<!--        </span>-->
-
-<!--        <span class="description">-->
-<!--            <span th:text="${task.description}"></span>-->
-<!--        </span>-->
-
         <span th:class="${task.status ? 'status-done' : 'status-not-done'}"
               th:text="${task.status ? 'Done' : 'Not done'}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
