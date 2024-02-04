@@ -25,4 +25,10 @@ public class DataService {
     public void deletedTask(Long id){
         toDoRepository.deleteById(id);
     }
+
+    public void statusChange(Long id){
+        Task todo = toDoRepository.findById(id).orElseThrow();
+        todo.setStatus(!todo.getStatus());
+        toDoRepository.save(todo);
+    }
 }

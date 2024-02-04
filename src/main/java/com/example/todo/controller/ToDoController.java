@@ -37,4 +37,10 @@ public class ToDoController {
         todoList.deletedTask(id);
         return "redirect:/";
     }
+
+    @PostMapping("/statusChange")
+    public String statusChange (@RequestParam Long id){
+        todoList.statusChange(id);
+        return "redirect:/";
+    }
 }
