@@ -98,7 +98,7 @@
         .delete-link {
             position: absolute;
             top: 5px;
-            right: 5px;
+            right: 10px;
             /*color: #999;*/
             text-decoration: none;
 
@@ -113,7 +113,7 @@
 
         .delete-link:hover {
             /*color: #555;*/
-            background-color: #407780;
+            background-color: #560000;
         }
 
         p {
@@ -138,6 +138,21 @@
         button:hover {
             background-color: #407780;
         }
+
+        .change-status-button {
+            margin-top: 25px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .action-buttons, button {
+            margin-bottom: 5px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -159,13 +174,20 @@
 
 <ul th:if="${not #lists.isEmpty(todoList)}">
     <li th:each="task : ${todoList}">
+
         <span style="word-wrap: break-word; width: 100px" th:text="${task.description}"></span>
         <span th:class="${task.status ? 'status-done' : 'status-not-done'}"
               th:text="${task.status ? 'Done' : 'Not done'}"></span>
         <span th:if="${task.deadline}" class="deadline" th:text="${task.deadline}"></span>
-        <form th:action="@{/delete/{id}(id=${task.id})}" method="post" >
-            <button class="delete-link" type="submit" onclick="return confirm('Are you sure?')">Delete </button>
-        </form>
+        <div class="action-buttons">
+            <form th:action="@{/delete/{id}(id=${task.id})}" method="post">
+                <button class="delete-link" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+            <form th:action="@{/statusChange}" method="post">
+                <input type="hidden" th:name="id" th:value="${task.id}"/>
+                <button class="change-status-button" type="submit">Change Status</button>
+            </form>
+        </div>
     </li>
 </ul>
 
