@@ -21,10 +21,11 @@ public class UserController {
     @GetMapping("/login")
     public String loginPage() {
         return"login";
-    } @GetMapping("/login")
-    public String loginPageRedirect() {
-        return "register";
     }
+//    @GetMapping("/login")
+//    public String loginPageRedirect() {
+//        return "register";
+//    }
 
     @GetMapping("/registration")
     public String registrationForm(Model model){
