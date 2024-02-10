@@ -20,13 +20,6 @@ public class DataService {
     private final ToDoRepository toDoRepository;
     private final UserRepository userRepository;
 
-//    public void addTask (String description, String deadline, Boolean status){
-//        toDoRepository.save(new Task(description, status, deadline));
-//    }
-
-//    public List<Task> getAllTasks(){
-//        return toDoRepository.findAll();
-//    }
 
     public void deletedTask(Long id){
         toDoRepository.deleteById(id);
