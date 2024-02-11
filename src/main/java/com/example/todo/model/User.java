@@ -3,6 +3,8 @@ package com.example.todo.model;
 import javax.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "user")

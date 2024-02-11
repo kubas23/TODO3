@@ -76,20 +76,26 @@
         button:hover {
             background-color: #407780;
         }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>Register</h2>
 
-    <form th:action="@{/registration}" method="post" th:object="${user}"> <!-- zakomentováno kvůli testování bez funčního backendu, stejně řádky 88 a 91-->
-<!--    <form th:action="@{/registration}" method="post">                            &lt;!&ndash; po zprovoznění backendu smazat tento řádek a taky 89 a 92 &ndash;&gt;-->
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form th:action="@{/registration}" method="post" th:object="${user}">
         <label>Username:</label>
         <input type="text" th:field="*{username}" required/>
-<!--        <input type="text" >-->
         <label>Password:</label>
         <input type="password" th:field="*{password}" required/>
-<!--        <input type="password" />-->
         <button type="submit">Register</button>
     </form>
 
