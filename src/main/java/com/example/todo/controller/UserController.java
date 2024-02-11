@@ -1,14 +1,16 @@
 package com.example.todo.controller;
 
 import com.example.todo.model.User;
-import com.example.todo.repository.UserRepository;
 import com.example.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,9 +23,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Autowired
-    private UserRepository userRepository;
-
     @GetMapping("/login")
     public String loginPage() {
         return"login";
@@ -33,11 +32,17 @@ public class UserController {
 //        return "register";
 //    }
 
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard(Model model) {
-        List<User> adminUsers = userRepository.findByIsAdmin(true);
-        model.addAttribute("adminUsers", adminUsers);
-        return "admin/dashboard";
+    @GetMapping("/admin")
+    @Secured("ROLE_ADMIN")
+    public String adminPage(Model model) {
+        try {
+            List<User> users = userService.getAllUsers();
+            model.addAttribute("users", users);
+            return "admin";
+        } catch (AccessDeniedException e ) {
+            return "redirect:/";
+        }
+
     }
 
     @GetMapping("/registration")
@@ -49,8 +54,13 @@ public class UserController {
     @PostMapping("/registration")
     public String registrationSubmit(@ModelAttribute("user") User user){
         userService.registerUser(user);
-        user.setIsAdmin(user.getIsAdmin());
         return "redirect:/login"; // Presmeruje na login page po uspesne registraci
+    }
+
+    @PostMapping("/admin/changeRole")
+    public String changeUserRole(@RequestParam Long userId, @RequestParam String newRole) {
+        userService.changeUserRole(userId, newRole);
+        return "redirect:/admin";
     }
 
 }

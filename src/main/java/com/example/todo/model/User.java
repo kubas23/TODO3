@@ -2,12 +2,8 @@ package com.example.todo.model;
 
 import javax.persistence.*;
 
-import com.example.todo.security.Authority;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
-import java.util.HashSet;
+import lombok.Getter;
 
 @Entity
 @Data
@@ -20,25 +16,11 @@ public class User {
 
     private String username;
     private String password;
-    private boolean isAdmin;
 
-    public boolean getIsAdmin(){
-        return isAdmin;
-    }
+    @Getter
+    private String role;
 
-    public void setIsAdmin(boolean isAdmin){
-        this.isAdmin = isAdmin;
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_authorities",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id")
-    )
-    private Collection<Authority> authorities;
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities != null ? (Collection<Authority>) new HashSet<>(authorities) : null;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

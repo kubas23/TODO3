@@ -173,6 +173,32 @@
             background-color: #560000;
         }
 
+        #admin-form button {
+            display: flex;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        #admin-link {
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        #admin-link button {
+            background-color: #61a0a8;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        #admin-link button:hover {
+            background-color: #407780;
+        }
 
     </style>
 </head>
@@ -184,6 +210,13 @@
     <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <button type="submit">Logout</button>
 </form>
+
+<!-- Odkaz na stranku administratora -->
+<li th:if="${userRole == 'ROLE_ADMIN'}">
+    <a id="admin-link" th:href="@{/admin}">
+        <button>Manage Roles</button>
+    </a>
+</li>
 
 <form class="input-form" th:action="@{/add}" method="post">
     <label for="task">New Task:</label>

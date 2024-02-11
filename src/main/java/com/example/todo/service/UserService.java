@@ -3,8 +3,12 @@ package com.example.todo.service;
 import com.example.todo.model.User;
 import com.example.todo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -21,4 +25,24 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public void changeUserRole(Long userId, String newRole) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setRole(newRole);
+        userRepository.save(user);
+     }
+
+     public String getLoggedInUserRole() {
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         if (authentication != null && authentication.isAuthenticated()) {
+             return authentication.getAuthorities().stream()
+                     .findFirst()
+                     .map(Object::toString)
+                     .orElse("USER");
+         }
+         return "USER";
+     }
 }

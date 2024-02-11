@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ToDo - Register</title>
+    <title>ToDo - Admin</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,21 +80,37 @@
 </head>
 <body>
 <div class="container">
-    <h2>Register</h2>
-
-    <form th:action="@{/registration}" method="post" th:object="${user}"> <!-- zakomentováno kvůli testování bez funčního backendu, stejně řádky 88 a 91-->
-<!--    <form th:action="@{/registration}" method="post">                            &lt;!&ndash; po zprovoznění backendu smazat tento řádek a taky 89 a 92 &ndash;&gt;-->
-        <label>Username:</label>
-        <input type="text" th:field="*{username}" required/>
-<!--        <input type="text" >-->
-        <label>Password:</label>
-        <input type="password" th:field="*{password}" required/>
-<!--        <input type="password" />-->
-        <button type="submit">Register</button>
-
-    </form>
-
-    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+    <h1>Manage User Roles</h1>
+    <!-- Button to return to the main page -->
+    <a th:href="@{/}" class="return-button">Return to Main Page</a>
+    <!-- Table for ROLE CHANGE -->
+    <table>
+        <thead>
+        <tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through users -->
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.role}"></td>
+            <td>
+                <!-- Form to change user role -->
+                <form th:action="@{/admin/changeRole}" method="post">
+                    <input type="hidden" th:name="userId" th:value="${user.id}" />
+                    <select th:name="newRole">
+                        <option value="USER">USER</option>
+                        <option value="ADMIN">ADMIN</option>
+                    </select>
+                    <button type="submit">Change Role</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
