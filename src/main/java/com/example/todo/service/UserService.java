@@ -26,7 +26,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private boolean userExists(String username) {
+    public boolean userExists(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
 

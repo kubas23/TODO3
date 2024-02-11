@@ -23,6 +23,7 @@ public class UserController {
     public String loginPage() {
         return"login";
     }
+
 //    @GetMapping("/login")
 //    public String loginPageRedirect() {
 //        return "register";

@@ -76,11 +76,20 @@
         button:hover {
             background-color: #407780;
         }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>Login</h2>
+
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
 
     <form th:action="@{/login}" method="post">
         <label for="username">Username:</label>
