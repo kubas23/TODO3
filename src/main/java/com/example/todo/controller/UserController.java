@@ -1,5 +1,6 @@
 package com.example.todo.controller;
 
+import com.example.todo.exceptions.UserAlreadyExistsException;
 import com.example.todo.model.User;
 import com.example.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,15 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registrationSubmit(@ModelAttribute("user") User user){
-        userService.registerUser(user);
-        return "redirect:/login"; // Presmeruje na login page po uspesne registraci
+    public String registrationSubmit(@ModelAttribute("user") User user, Model model){
+        try{
+            userService.registerUser(user);
+            return "redirect:/login"; // Presmeruje na login page po uspesne registraci
+        }catch (UserAlreadyExistsException ex){
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "register";
+        }
+
     }
 
 }
