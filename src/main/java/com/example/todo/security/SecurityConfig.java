@@ -1,5 +1,6 @@
 package com.example.todo.security;
 
+import com.example.todo.exceptions.GlobalExceptionHandler;
 import com.example.todo.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .failureUrl("/login.html?error=true")
+                .failureForwardUrl("/err")
                 .permitAll()
                 .and()
                 .logout()
