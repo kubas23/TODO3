@@ -91,6 +91,12 @@
         <input type="password" th:field="*{password}" required/>
 <!--        <input type="password" />-->
         <button type="submit">Register</button>
+
+        <div class="form-group">
+            <label for="isAdmin">Admin:</label>
+            <input type="checkbox" id="isAdmin" name="isAdmin" th:checked="${user.isAdmin()}">
+        </div>
+        <button type="submit">Register</button>
     </form>
 
     <p>Already have an account? <a th:href="@{/login}">Login here</a></p>

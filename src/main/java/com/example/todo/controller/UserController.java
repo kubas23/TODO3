@@ -1,6 +1,7 @@
 package com.example.todo.controller;
 
 import com.example.todo.model.User;
+import com.example.todo.repository.UserRepository;
 import com.example.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -18,6 +21,9 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/login")
     public String loginPage() {
         return"login";
@@ -26,6 +32,13 @@ public class UserController {
 //    public String loginPageRedirect() {
 //        return "register";
 //    }
+
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard(Model model) {
+        List<User> adminUsers = userRepository.findByIsAdmin(true);
+        model.addAttribute("adminUsers", adminUsers);
+        return "admin/dashboard";
+    }
 
     @GetMapping("/registration")
     public String registrationForm(Model model){
@@ -36,6 +49,7 @@ public class UserController {
     @PostMapping("/registration")
     public String registrationSubmit(@ModelAttribute("user") User user){
         userService.registerUser(user);
+        user.setIsAdmin(user.getIsAdmin());
         return "redirect:/login"; // Presmeruje na login page po uspesne registraci
     }
 
