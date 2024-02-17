@@ -1,7 +1,10 @@
 
-# Project Title
+# Todo app
 
-A brief description of what this project does and who it's for
+This is Todo web application, where you can create your own todos.
+After registration you can login to your created account and add tasks with deadline date and change status of the task.
+
+This project was created to showcase our skills that we acquired during the Java programming course.
 
 
 ## Authors
