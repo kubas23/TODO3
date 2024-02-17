@@ -12,5 +12,6 @@ A brief description of what this project does and who it's for
 ## Support
 
 For support, email ClueCZ@gmail.com 
+
 For support, email jakub.stanek.38@gmail.com
 
