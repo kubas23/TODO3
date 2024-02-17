@@ -23,6 +23,12 @@ public class UserController {
     public String loginPage() {
         return"login";
     }
+    @PostMapping("/err")
+    public String invalid(Model model){
+        model.addAttribute("errorMessage", "Invalid username or password.");
+        return "login";
+    }
+
 //    @GetMapping("/login")
 //    public String loginPageRedirect() {
 //        return "register";
